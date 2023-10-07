@@ -70,4 +70,32 @@ class Solution:
                 if node.right: queue.append(node.right)
 
         return levelSum
+
+
+Q6:
+class Solution:
+    def dfs(root):
+        if not node: return -1
+        left_depth = dfs(node.left)
+        right_depth = dfs(node.right)
+
+        cur_depth = max(left_depth, right_depth) + 1
+        while len(res) <= cur_depth:
+            res.append([])
+        res[cur_depth].append(node.val)
+
+        return cur_depth
+
+    res = []
+    if not root: return res
+
+    res.append([])
+    dfs(root)
+    root = None
+
+    return res[:-1]
+
+        
+
+
         
