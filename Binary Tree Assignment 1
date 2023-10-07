@@ -1,0 +1,73 @@
+Q1:
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+
+        left = self.minDepth(root.left)
+        right = self.minDepth(root.right)
+
+        if root.left and root.right:
+            return min(left, right) + 1
+
+        return max(left, right) + 1
+
+
+Q2:
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+
+
+Q3:
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+
+        q = collections.deque([root])
+        res = []
+
+        while q:
+            max_val = float('-inf')
+            for i in range(len(q)):
+                node = q.popleft()
+                max_val = max(max_val, node.val)
+
+                if node.left: q.append(node.left)
+                if node.right: q.append(node.right)
+            res.append(max_val)
+
+        return res
+
+
+Q4:
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+
+        def get_leaves(root, list = []):
+            if not root: return []
+
+            if not root.left and not root.right:
+                return [root.val]
+            else: 
+                return get_leaves(root.left) + get_leaves(root.right)
+        
+        return get_leaves(root1) == get_leaves(root2)
+        
+
+Q5:
+class Solution:
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+        if not root: return 0
+        queue = collections.deque([root])
+
+        while queue:
+            levelSum = 0
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                levelSum += node.val
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+
+        return levelSum
+        
